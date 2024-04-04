@@ -17,3 +17,15 @@ test('get started link', async ({ page }) => {
   // Expects page to have a heading with the name of Installation.
   await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
 });
+
+test('emulation context geolocation', async ({ page }) => {
+  await page.goto('https://www.openstreetmap.org');
+  await expect(page).toHaveTitle('OpenStreetMap');
+  await page.getByLabel('Show My Location').click();
+  await page.pause();
+});
+
+test('use dark color cheme', async ({ page }) => {
+  await page.goto('https://playwright.dev/');
+  await page.waitForTimeout(3 * 1000);
+});

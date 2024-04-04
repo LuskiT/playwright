@@ -32,12 +32,28 @@ module.exports = defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     // baseURL: 'http://127.0.0.1:3000',
+    // Populates context with given storage state.
+    // storageState: 'state.json',
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
     // Folder for test artifacts such as screenshots, videos, traces, etc.
     outputDir: 'test-results',
     // Each test is given 30 seconds.
     timeout: 30 * 1000,
+    // Emulates `'prefers-colors-scheme'` media feature.
+    colorScheme: 'light', // or 'dark'
+    // Context geolocation.
+    geolocation: { longitude: 12.492507, latitude: 41.889938 },
+    // Grants specified permissions to the browser context.
+    permissions: ['geolocation'],
+
+
+
+    
+    // Emulates the user locale.
+    // locale: 'en-GB',
+    // Emulates the user timezone.
+    // timezoneId: 'Europe/Paris',
   },
   expect: {
     // Maximum time expect() should wait for the condition to be met.
@@ -57,7 +73,10 @@ module.exports = defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { ...devices['Desktop Chrome'], 
+      // Viewport used for all pages in the context.
+      viewport: { width: 1366, height: 768,},
+    },
     },
 
     // {
