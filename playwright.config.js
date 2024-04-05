@@ -75,7 +75,7 @@ module.exports = defineConfig({
     // Channel to use, for example "chrome", "chrome-beta", "msedge", "msedge-beta".
     channel: 'chrome',
     // Run browser in headless mode.
-    headless: false,
+    headless: true,
   },
   expect: {
     // Maximum time expect() should wait for the condition to be met.
