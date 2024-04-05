@@ -29,3 +29,39 @@ test('use dark color cheme', async ({ page }) => {
   await page.goto('https://playwright.dev/');
   await page.waitForTimeout(3 * 1000);
 });
+
+test.describe('tests with annotation', () => {
+  test.skip('playwright will skip this test', async ({ page }) => {
+    console.log('this test will never run');
+  });
+  
+  test('playwright will skip this test for firefox browser', async ({ browserName }) => {
+    test.skip(browserName === 'firefox', 'Still working on it');
+    console.log('this test will never run on the firefox browser');
+  });
+  
+  test.fail('the result of this test all time will be a fail', async () => {
+    console.log('test with fail anotation');
+  });
+  
+  test.fixme('also fail the  test but playwright will not run this test, as opposed to the fail annotation', async () => {
+    console.log('test with fixme anotation');
+  });
+  
+  test('slow anotation test', async () => {
+    test.slow();
+    console.log('marks the test as slow and triples the test timeout');
+  });
+});
+
+test.describe('tests with tag', { tag:'@report' }, () => {
+  test('test only for firefox browser', { tag: '@firefox' }, () => {
+    console.log('firefox')
+  });
+});
+
+test('multiple tags test', {
+  tag: ['@slow', '@vrt', '@test', '@chromeonly']
+}, async () => {
+  console.log('this test contains a multiple tag');
+});

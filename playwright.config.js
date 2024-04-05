@@ -38,6 +38,10 @@ module.exports = defineConfig({
     trace: 'on-first-retry',
     // Folder for test artifacts such as screenshots, videos, traces, etc.
     outputDir: 'test-results',
+    // Capture screenshot after each test failure.
+    screenshot: 'off',//Options include 'off', 'on' and 'only-on-failure'
+    // Record video only when retrying a test for the first time.
+    video: 'off',//Options include: 'off', 'on', 'retain-on-failure' and 'on-first-retry'
     // Each test is given 30 seconds.
     timeout: 30 * 1000,
     // Emulates `'prefers-colors-scheme'` media feature.
@@ -45,15 +49,33 @@ module.exports = defineConfig({
     // Context geolocation.
     geolocation: { longitude: 12.492507, latitude: 41.889938 },
     // Grants specified permissions to the browser context.
-    permissions: ['geolocation'],
-
-
-
-    
+    permissions: ['geolocation'],    
     // Emulates the user locale.
-    // locale: 'en-GB',
+    locale: 'en-GB',
     // Emulates the user timezone.
-    // timezoneId: 'Europe/Paris',
+    timezoneId: 'Europe/London',
+    // Whether to automatically download all the attachments.
+    acceptDownloads: false,
+    // An object containing additional HTTP headers to be sent with every request.
+    // extraHTTPHeaders: { 'X-My-Header': 'value', },
+    // Credentials for HTTP authentication.
+    // httpCredentials: {  username: 'user', password: 'pass', },
+    // Whether to ignore HTTPS errors during navigation.
+    ignoreHTTPSErrors: true,
+    // Whether to emulate network being offline.
+    offline: false,
+    // Proxy settings used for all pages in the test.
+    // proxy: {  server: 'http://myproxy.com:3128',  bypass: 'localhost',  },
+    // Maximum time each action such as `click()` can take. Defaults to 0 (no limit).
+    actionTimeout: 0,
+    // Name of the browser that runs tests. For example `chromium`, `firefox`, `webkit`.
+    browserName: 'chromium',
+    // Toggles bypassing Content-Security-Policy.
+    bypassCSP: false,
+    // Channel to use, for example "chrome", "chrome-beta", "msedge", "msedge-beta".
+    channel: 'chrome',
+    // Run browser in headless mode.
+    headless: false,
   },
   expect: {
     // Maximum time expect() should wait for the condition to be met.
