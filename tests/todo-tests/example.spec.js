@@ -1,11 +1,22 @@
 // @ts-check
-const { test, expect } = require('@playwright/test');
+import { test, expect, chromium, } from '@playwright/test';
+
+test.beforeEach(async ({ page, isMobile, browser }) => {
+  test.fixme(isMobile, 'This hook will not run on mobile devices.');
+  test.info().annotations.push({
+    type: 'browser version',
+    description: browser.version(),
+  });
+  console.log('before each hook');
+});
+
 
 test('has title', async ({ page }) => {
   await page.goto('https://playwright.dev/');
 
   // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/Playwright/);
+  console.log('has title test');
 });
 
 test('get started link', async ({ page }) => {
@@ -44,9 +55,9 @@ test.describe('tests with annotation', {
     console.log('this test will never run on the firefox browser');
   });
 
-  test.fail('the result of this test all time will be a fail', async () => {
-    console.log('test with fail anotation');
-  });
+  // test.fail('the result of this test all time will be a fail', async () => {
+  //   console.log('test with fail anotation');
+  // });
 
   test.fixme('also fail the  test but playwright will not run this test, as opposed to the fail annotation', async () => {
     console.log('test with fixme anotation');
