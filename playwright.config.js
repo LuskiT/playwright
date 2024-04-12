@@ -50,9 +50,9 @@ export default defineConfig({
     // Emulates `'prefers-colors-scheme'` media feature.
     colorScheme: 'light', // or 'dark'
     // Context geolocation.
-    geolocation: { longitude: 12.492507, latitude: 41.889938 },
+    geolocation: { longitude: -0.118092, latitude: 51.509865 },
     // Grants specified permissions to the browser context.
-    permissions: ['geolocation'],    
+    permissions: ['geolocation', 'notifications'],    
     // Emulates the user locale.
     locale: 'en-GB',
     // Emulates the user timezone.
@@ -97,17 +97,33 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
+      name: 'setup db',
+      testMatch: /global\.setup\.js/,
+      teardown: 'cleanup db',
+    },
+    {
+      name: 'cleanup db',
+      testMatch: /global\.teardown\.js/,
+    },
+    {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'], 
+      use: {
+      ...devices['Desktop Chrome'], 
+      // It is important to define the `isMobile` property after destructuring `devices`,
+      isMobile: false,
       // Viewport used for all pages in the context.
       viewport: { width: 1366, height: 768,},
     },
+    dependencies: ['setup db'],
     },
 
-    // {
-    //   name: 'firefox',
-    //   use: { ...devices['Desktop Firefox'] },
-    // },
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'], 
+      isMobile: false,
+      viewport: { width: 1366, height: 768,},
+    },
+    },
 
     // {
     //   name: 'webkit',
@@ -115,13 +131,19 @@ export default defineConfig({
     // },
 
     /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
+    {
+      name: 'Mobile Chrome',
+      use: {
+        ...devices['Pixel 5'],
+        isMobile: true,
+      },
+    },
     {
       name: 'Mobile Safari',
-      use: { ...devices['iPhone 12'] },
+      use: {
+        ...devices['iPhone 12'],
+        isMobile: true,
+      },
     },
 
     /* Test against branded browsers. */
